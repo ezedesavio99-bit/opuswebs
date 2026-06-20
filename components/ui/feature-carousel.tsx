@@ -4,6 +4,7 @@ import * as React from "react"
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface CarouselImage {
   src: string
@@ -20,6 +21,7 @@ interface FeatureCarouselProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const FeatureCarousel = React.forwardRef<HTMLDivElement, FeatureCarouselProps>(
   ({ images, autoPlay = true, intervalMs = 4000, className, ...props }, ref) => {
+    const isMobile = useIsMobile()
     const [currentIndex, setCurrentIndex] = React.useState(Math.floor(images.length / 2))
 
     React.useEffect(() => {
@@ -44,7 +46,7 @@ export const FeatureCarousel = React.forwardRef<HTMLDivElement, FeatureCarouselP
 
     return (
       <div ref={ref} className={cn("relative w-full flex items-center justify-center", className)} {...props}>
-        <div className="relative w-full h-[260px] sm:h-[340px] md:h-[420px] flex items-center justify-center [perspective:1200px]">
+        <div className="relative w-full h-[220px] sm:h-[340px] md:h-[420px] flex items-center justify-center overflow-hidden [perspective:1200px]">
           {images.map((image, index) => {
             const offset = index - currentIndex
             const total = images.length
@@ -55,22 +57,23 @@ export const FeatureCarousel = React.forwardRef<HTMLDivElement, FeatureCarouselP
 
             const isCenter = pos === 0
             const isAdjacent = Math.abs(pos) === 1
+            const shiftPercent = isMobile ? 38 : 60
 
             const card = (
               <div
                 className={cn(
-                  "absolute aspect-video w-64 sm:w-80 md:w-[28rem] transition-all duration-500 ease-in-out",
+                  "absolute aspect-video w-48 sm:w-80 md:w-[28rem] transition-all duration-500 ease-in-out",
                   "flex items-center justify-center",
                   isCenter && image.url ? "cursor-pointer" : "",
                 )}
                 style={{
                   transform: `
-                    translateX(${pos * 60}%)
-                    scale(${isCenter ? 1 : isAdjacent ? 0.82 : 0.65})
+                    translateX(${pos * shiftPercent}%)
+                    scale(${isCenter ? 1 : isAdjacent ? 0.78 : 0.6})
                     rotateY(${pos * -12}deg)
                   `,
                   zIndex: isCenter ? 10 : isAdjacent ? 5 : 1,
-                  opacity: isCenter ? 1 : isAdjacent ? 0.45 : 0,
+                  opacity: isCenter ? 1 : isAdjacent ? 0.4 : 0,
                   filter: isCenter ? "blur(0px)" : "blur(4px)",
                   visibility: Math.abs(pos) > 2 ? "hidden" : "visible",
                 }}

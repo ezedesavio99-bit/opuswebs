@@ -49,7 +49,7 @@ const DotGlobeHero = React.forwardRef<HTMLDivElement, DotGlobeHeroProps>(
       >
         <div className="relative z-10 flex flex-col items-center justify-center h-full">{children}</div>
 
-        <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute inset-0 z-0 pointer-events-none scale-[0.55] translate-x-[12%] sm:scale-75 sm:translate-x-[6%] md:scale-100 md:translate-x-0">
           <Canvas>
             <PerspectiveCamera makeDefault position={[0, 0, 3]} fov={75} />
             <ambientLight intensity={0.5} />
