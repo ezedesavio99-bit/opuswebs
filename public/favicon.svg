@@ -1,0 +1,25 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Cursor click shape -->
+  <path d="M8 4L8 20L12 16L15 22L17 21L14 15L20 15L8 4Z" fill="url(#neonGlow)" stroke="#00D9FF" stroke-width="1.5" stroke-linejoin="round"/>
+  
+  <!-- Neon glow effect -->
+  <defs>
+    <linearGradient id="neonGlow" x1="8" y1="4" x2="20" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00D9FF"/>
+      <stop offset="50%" stop-color="#2F9CFF"/>
+      <stop offset="100%" stop-color="#00D9FF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Apply glow -->
+  <g filter="url(#glow)">
+    <path d="M8 4L8 20L12 16L15 22L17 21L14 15L20 15L8 4Z" fill="none" stroke="#00D9FF" stroke-width="0.5" opacity="0.6"/>
+  </g>
+</svg>
