@@ -2,8 +2,6 @@ import { neon } from "@neondatabase/serverless"
 import { NextResponse } from "next/server"
 import { Resend } from "resend"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(request: Request) {
   try {
     const { nombre, email, rubro, mensaje } = await request.json()
@@ -30,6 +28,7 @@ export async function POST(request: Request) {
     `
 
     try {
+      const resend = new Resend(process.env.RESEND_API_KEY)
       await resend.emails.send({
         from: "OpusWebs <onboarding@resend.dev>", // Change this to your verified domain
         to: ["tu-email@ejemplo.com"], // Replace with your actual email
